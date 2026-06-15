@@ -11,7 +11,6 @@ from .prep import peel_and_slice as _sync_peel_and_slice
 __all__ = [
     "cook",
     "microwave",
-    "peel_and_slice",
 ]
 
 _MICROWAVE_LOCK = asyncio.Lock()
@@ -58,7 +57,3 @@ async def cook[F: Food](food: F) -> F:
 
     async with _COOK_SEMAPHORE:
         return await _cook(food)
-
-
-async def peel_and_slice[F: Food](food: F) -> F:
-    return _sync_peel_and_slice(food)

@@ -3,7 +3,8 @@ import asyncio
 from kitchenkit import put_on_apron, serve_food
 from kitchenkit.pantry import Asparagus, Broccoli, Carrots, GreenBeans, Leek
 
-from kitchenkit.async_prep import peel_and_slice, cook
+from kitchenkit.prep import peel_and_slice
+from kitchenkit.async_prep import cook
 
 
 peeled = asyncio.Queue()
@@ -11,10 +12,10 @@ STOP = object()
 
 
 async def producer(foods):
-      for food_type in foods:
-          done = await peel_and_slice(food_type())
-          await peeled.put(done)
-          await asyncio.sleep(0)
+    for food_type in foods:
+        done = peel_and_slice(food_type())
+        await peeled.put(done)
+        await asyncio.sleep(0)
 
 
 async def consumer(id):
@@ -44,20 +45,20 @@ async def main():
             tg.create_task(consumer(2)),
         ]
         producer_task = tg.create_task(
-      producer([Asparagus, Broccoli, Carrots, GreenBeans, Leek])
-  )
+            producer([Asparagus, Broccoli, Carrots, GreenBeans, Leek])
+        )
 
         await producer_task
         await peeled.join()
 
         for _ in consumers:
-            peeled.put(STOP)
+            await peeled.put(STOP)
 
-        cooked = [
-            food
-            for consumer_task in consumers
-            for food in consumer_task.result()
-        ]
+    cooked = [
+        food
+        for consumer_task in consumers
+        for food in consumer_task.result()
+    ]
 
     serve_food(*cooked)
 
