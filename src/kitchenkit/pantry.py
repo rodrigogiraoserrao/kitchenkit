@@ -21,6 +21,46 @@ class Avocado(Food):
 
 
 @dataclass
+class Tomato(Food):
+    peel_and_slice_duration: int = 2
+
+
+@dataclass
+class Onion(Food):
+    peel_and_slice_duration: int = 2
+
+
+@dataclass
+class Broccoli(Food):
+    peel_and_slice_duration: int = 2
+    cook_duration: int = 5
+
+
+@dataclass
+class Carrots(Food):
+    peel_and_slice_duration: int = 2
+    cook_duration: int = 5
+
+
+@dataclass
+class Leek(Food):
+    peel_and_slice_duration: int = 1
+    cook_duration: int = 3
+
+
+@dataclass
+class GreenBeans(Food):
+    peel_and_slice_duration: int = 4
+    cook_duration: int = 4
+
+
+@dataclass
+class Asparagus(Food):
+    peel_and_slice_duration: int = 1
+    cook_duration: int = 6
+
+
+@dataclass
 class Pasta(Food):
     cook_duration: int = 10
 
@@ -31,5 +71,5 @@ class Rice(Food):
 
 
 @dataclass
-class Bulgur(Food):
+class Couscous(Food):
     cook_duration: int = 10

@@ -9,5 +9,20 @@ class Meatloaf(Food):
 
 
 @dataclass
-class Couscous(Food):
+class Bulgur(Food):
+    microwave_duration: int = 2
+
+
+@dataclass
+class RoastedChicken(Food):
+    microwave_duration: int = 4
+
+
+@dataclass
+class Pizza(Food):
     microwave_duration: int = 3
+
+
+@dataclass
+class Turkey(Food):
+    microwave_duration: int = 5
