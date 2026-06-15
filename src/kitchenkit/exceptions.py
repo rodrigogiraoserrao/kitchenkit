@@ -1,0 +1,2 @@
+class MessyKitchenError(Exception):
+    pass
