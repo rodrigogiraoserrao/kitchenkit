@@ -10,12 +10,12 @@ class Meatloaf(Food):
 
 @dataclass
 class Bulgur(Food):
-    microwave_duration: int = 2
+    microwave_duration: int = 3
 
 
 @dataclass
 class RoastedChicken(Food):
-    microwave_duration: int = 4
+    microwave_duration: int = 3
 
 
 @dataclass
@@ -25,4 +25,4 @@ class Pizza(Food):
 
 @dataclass
 class Turkey(Food):
-    microwave_duration: int = 5
+    microwave_duration: int = 3

@@ -44,20 +44,20 @@ class Carrots(Food):
 
 @dataclass
 class Leek(Food):
-    peel_and_slice_duration: int = 1
-    cook_duration: int = 3
+    peel_and_slice_duration: int = 2
+    cook_duration: int = 5
 
 
 @dataclass
 class GreenBeans(Food):
-    peel_and_slice_duration: int = 4
-    cook_duration: int = 4
+    peel_and_slice_duration: int = 2
+    cook_duration: int = 5
 
 
 @dataclass
 class Asparagus(Food):
-    peel_and_slice_duration: int = 1
-    cook_duration: int = 6
+    peel_and_slice_duration: int = 2
+    cook_duration: int = 5
 
 
 @dataclass

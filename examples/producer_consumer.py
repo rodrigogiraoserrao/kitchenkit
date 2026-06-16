@@ -11,14 +11,14 @@ peeled = asyncio.Queue()
 STOP = object()
 
 
-async def producer(foods):
+async def peeler(foods):
     for food_type in foods:
         done = peel_and_slice(food_type())
         await peeled.put(done)
         await asyncio.sleep(0)
 
 
-async def consumer(id):
+async def cooker(id):
     cooked = []
     print(f"Starting id {id}.")
     while True:
@@ -40,24 +40,24 @@ async def main():
     put_on_apron()
 
     async with asyncio.TaskGroup() as tg:
-        consumers = [
-            tg.create_task(consumer(1)),
-            tg.create_task(consumer(2)),
+        cookers = [
+            tg.create_task(cooker(1)),
+            tg.create_task(cooker(2)),
         ]
-        producer_task = tg.create_task(
-            producer([Asparagus, Broccoli, Carrots, GreenBeans, Leek])
+        peeler_task = tg.create_task(
+            peeler([Asparagus, Broccoli, Carrots, GreenBeans, Leek])
         )
 
-        await producer_task
+        await peeler_task
         await peeled.join()
 
-        for _ in consumers:
+        for _ in cookers:
             await peeled.put(STOP)
 
     cooked = [
         food
-        for consumer_task in consumers
-        for food in consumer_task.result()
+        for cooker_task in cookers
+        for food in cooker_task.result()
     ]
 
     serve_food(*cooked)
