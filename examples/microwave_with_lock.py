@@ -1,7 +1,7 @@
 import asyncio
 
 from kitchenkit import put_on_apron, serve_food
-from kitchenkit.leftovers import Couscous, Meatloaf
+from kitchenkit.leftovers import Bulgur, Meatloaf
 
 from kitchenkit.async_prep import microwave
 
@@ -14,21 +14,18 @@ async def microwave_meatloaf():
         return await microwave(Meatloaf())
 
 
-async def microwave_couscous():
+async def microwave_bulgur():
     async with microwave_lock:
-        return await microwave(Couscous())
+        return await microwave(Bulgur())
 
 
 async def main():
     put_on_apron()
-
-    async with asyncio.TaskGroup() as tg:
-        meatloaf_task = tg.create_task(microwave_meatloaf())
-        couscous_task = tg.create_task(microwave_couscous())
-
-    meatloaf = meatloaf_task.result()
-    couscous = couscous_task.result()
-    serve_food(couscous, meatloaf)
+    food = await asyncio.gather(
+        microwave_meatloaf(),
+        microwave_bulgur(),
+    )
+    serve_food(*food)
 
 
 if __name__ == "__main__":

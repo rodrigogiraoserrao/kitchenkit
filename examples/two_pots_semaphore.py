@@ -1,7 +1,7 @@
 import asyncio
 
 from kitchenkit import put_on_apron, serve_food
-from kitchenkit.pantry import Pasta, Rice, Bulgur
+from kitchenkit.pantry import Pasta, Rice, Couscous
 
 from kitchenkit.async_prep import cook
 
@@ -19,9 +19,9 @@ async def cook_rice():
         return await cook(Rice())
 
 
-async def cook_bulgur():
+async def cook_couscous():
     async with pots_semaphore:
-        return await cook(Bulgur())
+        return await cook(Couscous())
 
 
 async def main():
@@ -30,12 +30,12 @@ async def main():
     async with asyncio.TaskGroup() as tg:
         pasta_task = tg.create_task(cook_pasta())
         rice_task = tg.create_task(cook_rice())
-        bulgur_task = tg.create_task(cook_bulgur())
+        Couscous_task = tg.create_task(cook_couscous())
 
     pasta = pasta_task.result()
     rice = rice_task.result()
-    bulgur = bulgur_task.result()
-    serve_food(pasta, rice, bulgur)
+    couscous = Couscous_task.result()
+    serve_food(pasta, rice, couscous)
 
 
 if __name__ == "__main__":
