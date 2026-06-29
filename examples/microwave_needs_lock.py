@@ -2,14 +2,15 @@ import asyncio
 
 from kitchenkit import put_on_apron, serve_food
 from kitchenkit.leftovers import Bulgur, Meatloaf
-from kitchenkit.async_prep import microwave
+
+from kitchenkit.prep import async_microwave
 
 
 async def main():
     put_on_apron()
     food = await asyncio.gather(
-        microwave(Meatloaf()),
-        microwave(Bulgur()),
+        async_microwave(Meatloaf()),
+        async_microwave(Bulgur()),
     )
     serve_food(*food)
 

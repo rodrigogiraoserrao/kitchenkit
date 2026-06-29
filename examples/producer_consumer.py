@@ -3,8 +3,7 @@ import asyncio
 from kitchenkit import put_on_apron, serve_food
 from kitchenkit.pantry import Asparagus, Broccoli, Carrots, GreenBeans, Leek
 
-from kitchenkit.prep import peel_and_slice
-from kitchenkit.async_prep import cook
+from kitchenkit.prep import async_cook, peel_and_slice
 
 
 peeled = asyncio.Queue()
@@ -30,7 +29,7 @@ async def cooker(id):
                 return cooked
 
             print(f"{id}: Got {food.name}.")
-            done = await cook(food)
+            done = await async_cook(food)
             cooked.append(done)
         finally:
             peeled.task_done()

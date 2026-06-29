@@ -3,7 +3,7 @@ import asyncio
 from kitchenkit import put_on_apron, serve_food
 from kitchenkit.pantry import Pasta, Rice, Couscous
 
-from kitchenkit.async_prep import cook
+from kitchenkit.prep import async_cook
 
 
 pots_semaphore = asyncio.Semaphore(2)
@@ -11,17 +11,17 @@ pots_semaphore = asyncio.Semaphore(2)
 
 async def cook_pasta():
     async with pots_semaphore:
-        return await cook(Pasta())
+        return await async_cook(Pasta())
 
 
 async def cook_rice():
     async with pots_semaphore:
-        return await cook(Rice())
+        return await async_cook(Rice())
 
 
 async def cook_couscous():
     async with pots_semaphore:
-        return await cook(Couscous())
+        return await async_cook(Couscous())
 
 
 async def main():
