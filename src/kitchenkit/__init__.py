@@ -53,8 +53,8 @@ __all__ = [
 
 
 def put_on_apron() -> None:
-    logger.info("Let's get cooking! 🧑‍🍳")
     started_at.set(time.perf_counter())
+    logger.info("Let's get cooking! 🧑‍🍳")
 
 
 def serve_food(*food: Food) -> None:
@@ -69,5 +69,5 @@ def serve_food(*food: Food) -> None:
     if start is None:
         raise MessyKitchenError("Can't serve food if you prepared nothing!")
     elapsed = time.perf_counter() - start
-    logger.info("Finished cooking in %ds. ✨", round(elapsed))
+    logger.info("Finished cooking in %d minutes. ✨", round(elapsed))
     logger.info("Now serving: %s", ", ".join(f.name for f in food))

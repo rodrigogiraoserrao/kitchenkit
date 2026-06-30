@@ -17,18 +17,18 @@ async def peeler(foods):
         await asyncio.sleep(0)
 
 
-async def cooker(id):
+async def cooker(task_id):
     cooked = []
-    print(f"Starting id {id}.")
+    print(f"Starting id {task_id}.")
     while True:
         food = await peeled.get()
 
         try:
             if food is STOP:
-                print(f"{id}: Stopped.")
+                print(f"{task_id}: Stopped.")
                 return cooked
 
-            print(f"{id}: Got {food.name}.")
+            print(f"{task_id}: Got {food.name}.")
             done = await async_cook(food)
             cooked.append(done)
         finally:
